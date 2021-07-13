@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="index_bootstrap.css" />
+    </head>
+
+    <body onload="populateList()">
+        <div class="container-fluid">
+            <div id="room-selection-container" class="centered">
+                <h1 style="text-align: center;">Welcome to Rendezvous</h1>
+                <label for="user-list" style="text-align: center;">Enter the user you want to connect to: </label>
+                <select name="user-list" id="user-list">
+                    <option value="none" selected="selected">Select one</option>
+                </select><br>
+                <button id="call-button" class="btn btn-default" onclick="inviteCall()" title="Start a call">CALL</button>
+                <button id="chat-button" class="btn btn-default" onclick="inviteChat()" title="Start a chat">CHAT</button>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="well well-sm top-nav-bar" id="topnav" style="display: none;">
+                <div class="timer">
+                    <!-- <label id="minutes">00 </label>:<label id="seconds"> 00</label> -->
+                    <p id="meeting-timer">00 : 00</p>
+                </div>
+                <button type="button" class="btn btn-warning leaveMeeting" id="leaveMeeting" onclick="leaveRoom()">
+                    <img src="./img1_LeaveMeeting.png" class="img" />
+                </button>
+                <button type="button" class="btn btn-default topbutton" onclick="mic()">
+                    <img src="./img2_MicOn.png" class="img" id="mic" />
+                </button>
+                <button type="button" class="btn btn-default topbutton"  onclick="camera()">
+                    <img src="./img3_CameraOn.jpg" class="img" id="camera" />
+                </button>
+                <button type="button" class="btn btn-default topbutton" onclick="screenshare()">
+                    <img src="./img4_ScreenShareOff.png" class="img" id="screenshare" />
+                </button>
+                <button type="button" class="btn btn-default topbutton" onclick="chatting()">
+                    <img src="./img5_Chat.jpg" class="img" id="chat" />
+                </button>
+                <button type="button" class="btn btn-default topbutton" onclick="fileshare()">
+                    <img src="./img6_FileShare.jpg" class="img" id="fileshare" />
+                </button>
+            </div>
+
+            <div id="video-chat-container" class="video-position" style="display: none;">
+                <video class="well" id="remote-video" autoplay="autoplay"></video>
+                <video id="local-video" autoplay="autoplay" muted="muted"></video>
+            </div>
+
+            <div class="messagebox" id="chat-container" style="display: block;">
+                <p id="receive-message">Messages received:</p>
+                <fieldset id="send-message-field" style="display: none;">
+                    <legend style="font-size: medium;">Message to send:</legend>
+                    <textarea row="10" col="25" placeholder="Type your message here" id="send-message" style="display: none;">
+                    </textarea>
+                </fieldset>
+                <button id="chat-send-button" class="btn btn-default" onclick="sendMessage()" style="display: none;" title="Send Message">Send</button>
+                <button id="call-from-chat-button" class="btn btn-default" style="display: none;" onclick="callFromChat()" title="Start a call">Call</button>
+                <button id="home-from-chat-button" class="btn btn-default" style="display: none;" onclick="homeFromChat()" title="Go to home">Home</button>
+            </div>
+
+            <div class="container-fluid">
+                <div class="messagebox" id="file-container" style="display: none;">
+                    <p id="receive-file">Files received:</p>
+                    <input type="file" id="send-file">
+                    <button id="file-send-button" onclick="sendFile()" title="Send File">Send</button>
+                </div>
+            </div>
+
+            <div id="dialling-modal" class="modal" style="display: none;">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <p>Dialling... Please wait...</p>
+                </div>  
+            </div>
+
+            <script src="/socket.io/socket.io.js"></script>
+            <script type="text/javascript" src="client.js"></script>
+
+        </div>
+    </body>
+</html>
